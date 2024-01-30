@@ -1,6 +1,7 @@
 # RSS Aggregatar
 
 A HTTP Server which continuously retreive new feeds to provide an all-in-one place for user to update news from users' own favorite source.
+Developer can create a front-end UI to display data fetched from this as posts, check out this example [RSS Reader](https://github.com/tientrinh21/rssreader)
 
 ## Tech Used
 

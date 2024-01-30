@@ -79,4 +79,5 @@ func main() {
 
 	log.Printf("Server starting on port http://localhost:%s", portString)
 	log.Fatal(srv.ListenAndServe())
+	// log.Fatal(http.ListenAndServe(":"+portString, router))
 }

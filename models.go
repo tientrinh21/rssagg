@@ -10,10 +10,10 @@ import (
 
 type User struct {
 	ID        uuid.UUID `json:"id"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 	Name      string    `json:"name"`
-	ApiKey    string    `json:"api_key"`
+	ApiKey    string    `json:"apiKey"`
 }
 
 func databaseUsertoUser(dbUser database.User) User {
@@ -28,11 +28,11 @@ func databaseUsertoUser(dbUser database.User) User {
 
 type Feed struct {
 	ID        uuid.UUID `json:"id"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 	Name      string    `json:"name"`
 	Url       string    `json:"url"`
-	UserID    uuid.UUID `json:"user_id"`
+	UserID    uuid.UUID `json:"userId"`
 }
 
 func databaseFeedtoFeed(dbFeed database.Feed) Feed {
@@ -56,10 +56,10 @@ func databaseFeedstoFeeds(dbFeeds []database.Feed) []Feed {
 
 type FeedFollow struct {
 	ID        uuid.UUID `json:"id"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	UserID    uuid.UUID `json:"user_id"`
-	FeedID    uuid.UUID `json:"feed_id"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
+	UserID    uuid.UUID `json:"userId"`
+	FeedID    uuid.UUID `json:"feedId"`
 }
 
 func databaseFeedFollowtoFeedFollow(dbFeedFollow database.FeedFollow) FeedFollow {
@@ -82,13 +82,13 @@ func databaseFeedFollowstoFeedFollows(dbFeedFollows []database.FeedFollow) []Fee
 
 type Post struct {
 	ID          uuid.UUID      `json:"id"`
-	CreatedAt   time.Time      `json:"created_at"`
-	UpdatedAt   time.Time      `json:"updated_at"`
+	CreatedAt   time.Time      `json:"createdAt"`
+	UpdatedAt   time.Time      `json:"updatedAt"`
 	Title       string         `json:"title"`
 	Description sql.NullString `json:"description"`
-	PublishedAt time.Time      `json:"published_at"`
+	PublishedAt time.Time      `json:"publishedAt"`
 	Url         string         `json:"url"`
-	FeedID      uuid.UUID      `json:"feed_id"`
+	FeedID      uuid.UUID      `json:"feedId"`
 }
 
 func databasePostToPost(dbPost database.Post) Post {

@@ -55,6 +55,50 @@ func (q *Queries) CreatePost(ctx context.Context, arg CreatePostParams) (Post, e
 	return i, err
 }
 
+const getPostsByFeed = `-- name: GetPostsByFeed :many
+SELECT id, created_at, updated_at, title, description, published_at, url, feed_id from posts
+where posts.feed_id = $1
+ORDER BY posts.published_at DESC
+LIMIT $2
+`
+
+type GetPostsByFeedParams struct {
+	FeedID uuid.UUID
+	Limit  int32
+}
+
+func (q *Queries) GetPostsByFeed(ctx context.Context, arg GetPostsByFeedParams) ([]Post, error) {
+	rows, err := q.db.QueryContext(ctx, getPostsByFeed, arg.FeedID, arg.Limit)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Post
+	for rows.Next() {
+		var i Post
+		if err := rows.Scan(
+			&i.ID,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.Title,
+			&i.Description,
+			&i.PublishedAt,
+			&i.Url,
+			&i.FeedID,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getPostsForUser = `-- name: GetPostsForUser :many
 SELECT posts.id, posts.created_at, posts.updated_at, posts.title, posts.description, posts.published_at, posts.url, posts.feed_id FROM posts
 JOIN feed_follows ON posts.feed_id = feed_follows.feed_id

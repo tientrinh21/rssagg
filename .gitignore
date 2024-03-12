@@ -2,3 +2,4 @@
 rssagg
 .env
 thunder-tests/
+requests-test.http

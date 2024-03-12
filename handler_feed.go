@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-chi/chi"
 	"github.com/google/uuid"
 	"github.com/tientrinh21/rssagg/internal/database"
 )
@@ -47,4 +48,23 @@ func (apiCfg *apiConfig) handlerGetFeeds(w http.ResponseWriter, r *http.Request)
 		return
 	}
 	respondWithJSON(w, 200, databaseFeedstoFeeds(feeds))
+}
+
+func (apiCfg *apiConfig) handlerGetPostsByFeed(w http.ResponseWriter, r *http.Request) {
+	feedIDString := chi.URLParam(r, "feedID")
+	feedID, err := uuid.Parse(feedIDString)
+	if err != nil {
+		respondWithError(w, 400, fmt.Sprintf("Error parsing feed id: %v", err))
+		return
+	}
+
+	posts, err := apiCfg.DB.GetPostsByFeed(r.Context(), database.GetPostsByFeedParams{
+		FeedID: feedID,
+		Limit:  10,
+	})
+
+	if err != nil {
+		respondWithError(w, 400, fmt.Sprintf("Failed to get posts: %v", err))
+	}
+	respondWithJSON(w, 200, databasePostsToPosts(posts))
 }

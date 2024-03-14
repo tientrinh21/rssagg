@@ -14,20 +14,21 @@ import (
 )
 
 const createPost = `-- name: CreatePost :one
-INSERT INTO posts (id, created_at, updated_at, title, description, published_at, url, feed_id)
-VALUES($1, $2, $3, $4, $5, $6, $7, $8)
-RETURNING id, created_at, updated_at, title, description, published_at, url, feed_id
+INSERT INTO posts (id, created_at, updated_at, title, description, published_at, url, thumbnail_url, feed_id)
+VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+RETURNING id, created_at, updated_at, title, description, published_at, url, thumbnail_url, feed_id
 `
 
 type CreatePostParams struct {
-	ID          uuid.UUID
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	Title       string
-	Description sql.NullString
-	PublishedAt time.Time
-	Url         string
-	FeedID      uuid.UUID
+	ID           uuid.UUID
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
+	Title        string
+	Description  sql.NullString
+	PublishedAt  time.Time
+	Url          string
+	ThumbnailUrl sql.NullString
+	FeedID       uuid.UUID
 }
 
 func (q *Queries) CreatePost(ctx context.Context, arg CreatePostParams) (Post, error) {
@@ -39,6 +40,7 @@ func (q *Queries) CreatePost(ctx context.Context, arg CreatePostParams) (Post, e
 		arg.Description,
 		arg.PublishedAt,
 		arg.Url,
+		arg.ThumbnailUrl,
 		arg.FeedID,
 	)
 	var i Post
@@ -50,13 +52,14 @@ func (q *Queries) CreatePost(ctx context.Context, arg CreatePostParams) (Post, e
 		&i.Description,
 		&i.PublishedAt,
 		&i.Url,
+		&i.ThumbnailUrl,
 		&i.FeedID,
 	)
 	return i, err
 }
 
 const getPostsByFeed = `-- name: GetPostsByFeed :many
-SELECT id, created_at, updated_at, title, description, published_at, url, feed_id from posts
+SELECT id, created_at, updated_at, title, description, published_at, url, thumbnail_url, feed_id from posts
 where posts.feed_id = $1
 ORDER BY posts.published_at DESC
 LIMIT $2
@@ -84,6 +87,7 @@ func (q *Queries) GetPostsByFeed(ctx context.Context, arg GetPostsByFeedParams) 
 			&i.Description,
 			&i.PublishedAt,
 			&i.Url,
+			&i.ThumbnailUrl,
 			&i.FeedID,
 		); err != nil {
 			return nil, err
@@ -100,7 +104,7 @@ func (q *Queries) GetPostsByFeed(ctx context.Context, arg GetPostsByFeedParams) 
 }
 
 const getPostsForUser = `-- name: GetPostsForUser :many
-SELECT posts.id, posts.created_at, posts.updated_at, posts.title, posts.description, posts.published_at, posts.url, posts.feed_id FROM posts
+SELECT posts.id, posts.created_at, posts.updated_at, posts.title, posts.description, posts.published_at, posts.url, posts.thumbnail_url, posts.feed_id FROM posts
 JOIN feed_follows ON posts.feed_id = feed_follows.feed_id
 WHERE feed_follows.user_id = $1
 ORDER BY posts.published_at DESC
@@ -129,6 +133,7 @@ func (q *Queries) GetPostsForUser(ctx context.Context, arg GetPostsForUserParams
 			&i.Description,
 			&i.PublishedAt,
 			&i.Url,
+			&i.ThumbnailUrl,
 			&i.FeedID,
 		); err != nil {
 			return nil, err

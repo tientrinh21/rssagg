@@ -1,4 +1,4 @@
-# RSS Aggregatar
+# RSS Aggregator
 
 A HTTP Server which continuously retreive new feeds to provide an all-in-one place for user to update news from users' own favorite source.
 Developer can create a front-end UI to display data fetched from this as posts, check out this example [RSS Reader](https://github.com/tientrinh21/rssreader)
@@ -35,11 +35,15 @@ GET http://localhost:PORT/v1/error
   - Create user:
 ```http
 POST http://localhost:PORT/v1/users
+```
+
+```json
 
 {
   name: "[USER_NAME]"
 }
 ```
+
 The received response will contain the `apiKey`, this key will be use to get user, add feed, etc.
 
   - Get user:
@@ -53,7 +57,9 @@ Authorization: ApiKey [API_KEY]
 ```http
 POST http://localhost:PORT/v1/feeds
 Authorization: ApiKey [API_KEY]
+```
 
+```json
 {
   name: "[FEED_NAME]"
   url: "[RSS_URL]"

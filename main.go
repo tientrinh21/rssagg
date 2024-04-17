@@ -87,5 +87,6 @@ func main() {
 		log.Fatal("SERVICE_URL is not found in the environment")
 	}
 	log.Printf("Server starting on port %s", serviceURL)
+
 	log.Fatal(srv.ListenAndServe())
 }

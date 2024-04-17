@@ -23,9 +23,46 @@ go build && ./rssagg
 
 ## How to use
 
--   **Healthcheck - Ready / Error**
+- **Healthcheck - Ready / Error**
 
 ```http
 GET http://localhost:PORT/v1/ready
 GET http://localhost:PORT/v1/error
 ```
+
+- **User - Create / Get**
+
+  - Create user:
+```http
+POST http://localhost:PORT/v1/users
+
+{
+  name: "[USER_NAME]"
+}
+```
+The received response will contain the `apiKey`, this key will be use to get user, add feed, etc.
+
+  - Get user:
+```http
+GET http://localhost:PORT/v1/users
+Authorization: ApiKey [API_KEY]
+```
+- **Feed - Add feed / Get feed lists**
+
+  - Add feed:
+```http
+POST http://localhost:PORT/v1/feeds
+Authorization: ApiKey [API_KEY]
+
+{
+  name: "[FEED_NAME]"
+  url: "[RSS_URL]"
+}
+```
+
+  - Get feed lists:
+```http
+GET http://localhost:PORT/v1/feeds
+```
+
+

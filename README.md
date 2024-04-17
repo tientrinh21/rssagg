@@ -113,3 +113,7 @@ GET http://localhost:PORT/v1/feeds/{feedID}
 GET http://localhost:PORT/v1/feeds/{feedID}
 Authorization: ApiKey [API_KEY]
 ```
+
+## Author
+
+Built by [Tien Trinh](https://tientrinh.netlify.app/)

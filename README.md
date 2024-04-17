@@ -15,7 +15,16 @@ Developer can create a front-end UI to display data fetched from this as posts, 
 
 ## Quick Start
 
-Create `.env` file and assign `PORT` value and `DB_URL` to your local PostgreSQL database.
+Create `.env` file and assign `PORT` value and `DB_URL` to your local PostgreSQL database. Then add `SERVICE_URL` as the server URL.
+
+For example:
+```python
+PORT=8000
+DB_URL=postgres://[USER]:root@localhost:5432/rssagg
+SERVICE_URL='http://localhost:8000'
+```
+
+Then run:
 
 ```sh
 cd rssagg

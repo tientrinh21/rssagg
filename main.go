@@ -78,15 +78,11 @@ func main() {
 		Addr:    ":" + portString,
 	}
 
-	// Local dev
-	// log.Printf("Server starting on port http://localhost:%s", portString)
-
-	// Production (comment this when running locally)
 	serviceURL := os.Getenv("SERVICE_URL")
 	if serviceURL == "" {
 		log.Fatal("SERVICE_URL is not found in the environment")
 	}
-	log.Printf("Server starting on port %s", serviceURL)
+	log.Printf("Server starting on %s", serviceURL)
 
 	log.Fatal(srv.ListenAndServe())
 }

@@ -11,6 +11,7 @@ Developer can create a front-end UI to display data fetched from this as posts, 
 -   **Tools:**
     -   [goose](https://github.com/pressly/goose) - database migration
     -   [sqlc](https://sqlc.dev/) - SQL compiler
+-   **Host:** [Supabase](https://supabase.com/)
 
 ## Quick Start
 

@@ -87,7 +87,7 @@ Authorization: ApiKey [API_KEY]
 ```
 - Unfollow a feed:
 ```http
-DEL http://localhost:PORT/v1/feed_follows/{feedFollowID}
+DELETE http://localhost:PORT/v1/feed_follows/{feedFollowID}
 Authorization: ApiKey [API_KEY]
 ```
 

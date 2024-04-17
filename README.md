@@ -23,52 +23,67 @@ go build && ./rssagg
 
 ## How to use
 
-- **Healthcheck - Ready / Error**
+### Healthcheck - Ready / Error
 
 ```http
 GET http://localhost:PORT/v1/ready
 GET http://localhost:PORT/v1/error
 ```
 
-- **User - Create / Get**
+### User - Create / Get
 
-  - Create user:
+- Create user:
 ```http
 POST http://localhost:PORT/v1/users
 ```
-
-```javascript
-
+```json
 {
-  name: "[USER_NAME]"
+  "name": "[USER_NAME]"
 }
 ```
 
 The received response will contain the `apiKey`, this key will be use to get user, add feed, etc.
 
-  - Get user:
+- Get user:
 ```http
 GET http://localhost:PORT/v1/users
 Authorization: ApiKey [API_KEY]
 ```
-- **Feed - Add feed / Get feed lists**
+### Feed - Add feed / Get feed lists / Get feed with ID
 
-  - Add feed:
+- Add feed:
 ```http
 POST http://localhost:PORT/v1/feeds
 Authorization: ApiKey [API_KEY]
 ```
-
-```javascript
+```json
 {
-  name: "[FEED_NAME]"
-  url: "[RSS_URL]"
+  "name": "[FEED_NAME]"
+  "url": "[RSS_URL]"
 }
 ```
 
-  - Get feed lists:
+- Get feed lists:
 ```http
 GET http://localhost:PORT/v1/feeds
 ```
 
+### Follows - Get follow lists / Follow a feed / Unfollow a feed
 
+- Follow a feed:
+```http
+POST http://localhost:PORT/v1/feed_follow
+Authorization: ApiKey [API_KEY]
+```
+```json
+{
+  "feed_id": "[FEED_ID]"
+}
+```
+
+### Posts - Get posts with feeds ID / Get posts according to user's follow
+
+- Get posts with feeds ID:
+```http
+GET http://localhost:PORT/v1/feeds/{feedID}
+```

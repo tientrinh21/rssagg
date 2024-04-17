@@ -70,9 +70,14 @@ GET http://localhost:PORT/v1/feeds
 
 ### Follows - Get follow lists / Follow a feed / Unfollow a feed
 
+- Get follow lists
+```http
+GET http://localhost:PORT/v1/feed_follows
+Authorization: ApiKey [API_KEY]
+```
 - Follow a feed:
 ```http
-POST http://localhost:PORT/v1/feed_follow
+POST http://localhost:PORT/v1/feed_follows
 Authorization: ApiKey [API_KEY]
 ```
 ```json
@@ -80,10 +85,21 @@ Authorization: ApiKey [API_KEY]
   "feed_id": "[FEED_ID]"
 }
 ```
+- Unfollow a feed:
+```http
+DEL http://localhost:PORT/v1/feed_follows/{feedFollowID}
+Authorization: ApiKey [API_KEY]
+```
 
-### Posts - Get posts with feeds ID / Get posts according to user's follow
+### Posts - Get posts with feeds ID / Get posts according to user's follows
 
 - Get posts with feeds ID:
 ```http
 GET http://localhost:PORT/v1/feeds/{feedID}
+```
+
+- Get posts according to user's follows
+```http
+GET http://localhost:PORT/v1/feeds/{feedID}
+Authorization: ApiKey [API_KEY]
 ```

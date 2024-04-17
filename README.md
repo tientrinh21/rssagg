@@ -37,7 +37,7 @@ GET http://localhost:PORT/v1/error
 POST http://localhost:PORT/v1/users
 ```
 
-```json
+```javascript
 
 {
   name: "[USER_NAME]"
@@ -59,7 +59,7 @@ POST http://localhost:PORT/v1/feeds
 Authorization: ApiKey [API_KEY]
 ```
 
-```json
+```javascript
 {
   name: "[FEED_NAME]"
   url: "[RSS_URL]"
